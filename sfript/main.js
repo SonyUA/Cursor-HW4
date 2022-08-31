@@ -4,10 +4,21 @@ const themes = ["Диференційне рівняння", "Теорія ав�
 
 const marks = [4, 5, 5, 3, 4, 5];
 
-let addSteam = [];
-let teamProject = [];
-let studReting = [];
-let randNumber = [];
+let divide = getDivide(students); // Розділіть студентів на пари
+console.log(divide);
+window.document.writeln(`<p> 1 - ${divide.join(" | ")}</p>`);
+
+let addProject = projectTopics(divide, themes); // Зіставте пари з попереднього завдання та теми проєктів
+console.log(addProject);
+window.document.writeln(`<p> 2 - ${addProject.join(" | ")}</p>`);
+
+let reting = rating(students, marks); // Зіставте оцінки(marks) зі студентом(students)
+console.log(reting);
+window.document.writeln(`<p> 3 - ${reting.join(" | ")}</p>`);
+
+let random = randomNumber(divide, themes); // Поставте кожній парі випадкову оцінку(від 1 до 5)
+console.log(random);
+window.document.writeln(`<p> 4 - ${random.join(" | ")}</p>`);
 
 /*Розділіть студентів на пари
 (хлопець + дівчина) для работи над проєктом. 
@@ -15,6 +26,7 @@ let randNumber = [];
 [["Олександр", "Олена"], [..], [...]]; */
 
 function getDivide(students) {
+    let addSteam = [];
     const studentsInner = students.slice();
     const girl = [];
     const man = [];
@@ -31,45 +43,38 @@ function getDivide(students) {
     return addSteam;
 }
 
-let divide = getDivide(students);
-console.log(divide);
-
 /* Зіставте пари з попереднього завдання та теми проєктів,
 над якими студенти будуть працювати. Повинен вийти вкладений масив виду:
 [["Олександр і Олена", "Теорія автоматів"], [...], [...]] */
 
 function projectTopics(team, them) {
+    let teamProject = [];
     for (let i = 0; i < team.length; i++) {
-        teamProject.push([addSteam[i], them[i]].flat());
+        teamProject.push([divide[i], them[i]].flat());
     }
     return teamProject;
 }
 
-let addProject = projectTopics(addSteam, themes);
-console.log(addProject);
-
 /*Зіставте оцінки(marks) зі студентом(students): [["Саша", 4], [...], [...]] */
 
 function rating(stud, mark) {
+    let studReting = [];
     for (let i = 0; i < stud.length; i++) {
         studReting.push([stud[i], mark[i]]);
     }
     return studReting;
 }
-let reting = rating(students, marks);
-console.log(reting);
 
 /* Поставте кожній парі випадкову оцінку(від 1 до 5) 
 за проєкт(тут функція буде нечистою, але не повинна мутувати массив):
 [["Олександр і Олена", "Теорія автоматів", 5], [...], [...]]*/
 
 function randomNumber(team, them) {
+    let randNumber = [];
     for (let i = 0; i < team.length; i++) {
         let num = Math.floor(Math.random() * (6 - 1) + 1);
-        randNumber.push([addSteam[i], them[i], num].flat());
+        randNumber.push([divide[i], them[i], num].flat());
     }
+
     return randNumber;
 }
-
-let random = randomNumber(addSteam, themes);
-console.log(random);
