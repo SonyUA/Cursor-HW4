@@ -50,7 +50,7 @@ function getDivide(students) {
 function projectTopics(team, them) {
     let teamProject = [];
     for (let i = 0; i < team.length; i++) {
-        teamProject.push([divide[i], them[i]].flat());
+        teamProject.push([divide[i].join(" і "), them[i]].flat());
     }
     return teamProject;
 }
@@ -73,7 +73,7 @@ function randomNumber(team, them) {
     let randNumber = [];
     for (let i = 0; i < team.length; i++) {
         let num = Math.floor(Math.random() * (6 - 1) + 1);
-        randNumber.push([divide[i], them[i], num].flat());
+        randNumber.push([divide[i].join(" і "), them[i], num].flat());
     }
 
     return randNumber;
